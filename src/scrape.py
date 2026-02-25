@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 from selenium.webdriver import Remote, ChromeOptions
 from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
 
+# Our Bright Data web scraper connection
 SBR_WEBDRIVER = 'https://brd-customer-hl_e6cbb8f3-zone-ai_scraper:ewi0kuz05voo@brd.superproxy.io:9515'
 
+# Main function to scrape
 def scrape_website(website: str):
     print("Launching chrome browser...")
 
@@ -24,6 +26,7 @@ def scrape_website(website: str):
         print("Page data scraped", html)
         return html
 
+# Extract the body content
 def extract_body_content(html_content: str):
     soup = BeautifulSoup(html_content, 'html.parser')
     body_content = soup.body
@@ -31,6 +34,7 @@ def extract_body_content(html_content: str):
         return str(body_content)
     return ""
 
+# Clean up (remove JS and CSS from scraped content)
 def clean_body_content(body_content: str):
     soup = BeautifulSoup(body_content, 'html.parser')
 
@@ -44,7 +48,7 @@ def clean_body_content(body_content: str):
 
     return cleaned_content
 
-# Handle limit for LLM-input. We split the html_content into batches of 6k characters for processing big websites
+# Handle token-limit for LLM. We split the data into batches of 6k characters for processing big websites
 def split_dom_content(dom_content: str, max_length=6000):
     return [
         dom_content[i : i + max_length] for i in range(0, len(dom_content), max_length)
