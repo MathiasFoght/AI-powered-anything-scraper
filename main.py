@@ -1,16 +1,28 @@
-# This is a sample Python script.
+import streamlit as st
+from src.scrape import scrape_website, split_dom_content, clean_body_content, extract_body_content
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+st.title("Anything scraper with AI")
+url = st.text_input("Enter a Website URL: ")
+
+if st.button("Scrape site"):
+    st.write("Scraping the website...")
+
+    result = scrape_website(url)
+    print(result)
+    cleaned_content = clean_body_content(result)
+    st.session_state.dom_content = cleaned_content
+
+    # View DOM content that was scraped
+    with st.expander("View DOM content:"):
+        st.text_area("Dom content", cleaned_content, height=500)
+
+if "dom_content" in st.session_state:
+    parse_description = st.text_area("Describe what you want to parse?")
+
+    if st.button("Parse Content"):
+        if parse_description:
+            st.write("Parsing the content...")
+
+            dom_batches = split_dom_content(st.session_state.dom_content)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
