@@ -46,7 +46,7 @@ def parse_with_openai(batches, parse_description):
             })
         except Exception as exc:
             raise RuntimeError(
-                "Fejl under kald til OpenAI. Tjek API-nøgle, modelnavn og internetforbindelse."
+                "Error during OpenAI API call. Check your internet, API key or the model:" + str(exc)
             ) from exc
         print(f"Parsed batch {i} of {len(batches)}")
         parsed_content.append(response.content if hasattr(response, "content") else str(response))
