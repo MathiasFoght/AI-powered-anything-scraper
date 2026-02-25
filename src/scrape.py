@@ -1,10 +1,13 @@
-import selenium.webdriver as webdriver
+import os
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from selenium.webdriver import Remote, ChromeOptions
 from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
 
+load_dotenv()
+
 # Our Bright Data web scraper connection
-SBR_WEBDRIVER = 'https://brd-customer-hl_e6cbb8f3-zone-ai_scraper:ewi0kuz05voo@brd.superproxy.io:9515'
+SBR_WEBDRIVER = os.getenv("SBR_WEBDRIVER")
 
 # Main function to scrape
 def scrape_website(website: str):

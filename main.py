@@ -6,7 +6,7 @@ st.title("Anything scraper with AI")
 url = st.text_input("Enter a Website URL: ")
 
 # Start scraping
-if st.button("Scrape site"):
+if st.button("Scrape website"):
     st.write("Scraping the website...")
 
     result = scrape_website(url)
