@@ -51,7 +51,7 @@ def clean_body_content(body_content: str):
 
     return cleaned_content
 
-# Handle token-limit for LLM. We split the data into batches of 6k characters for processing big websites
+# Handle token-limit for LLM. We split the data into batches of 6k characters for processing large websites
 def split_dom_content(dom_content: str, max_length=6000):
     return [
         dom_content[i : i + max_length] for i in range(0, len(dom_content), max_length)

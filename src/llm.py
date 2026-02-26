@@ -24,7 +24,7 @@ model = ChatOpenAI(
     temperature=0,
 )
 
-def openai_is_configured():
+def is_openai_configured():
     if not OPENAI_API_KEY:
         raise RuntimeError(
             "OPENAI_API_KEY is missing. Please set it in your environment variables."
@@ -32,7 +32,7 @@ def openai_is_configured():
 
 
 def parse_with_openai(batches, parse_description):
-    openai_is_configured()
+    is_openai_configured()
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | model
 
